@@ -37,4 +37,6 @@ public class Book {
     @NotBlank
     private List<Author> authors = new ArrayList<>();
 
+    //OneToMany bookitem
+
 }

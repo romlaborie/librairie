@@ -1,5 +1,7 @@
 package com.epsiBibliProjet.librairie.model;
 
-public class Account {
+public class User {
+
+
 
 }
