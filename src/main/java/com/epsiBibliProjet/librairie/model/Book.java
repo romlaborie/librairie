@@ -1,5 +1,6 @@
 package com.epsiBibliProjet.librairie.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -33,8 +34,7 @@ public class Book {
     private String lang;
 
     @ManyToMany
-    @JoinTable(name = "T_Book_Author_Associations", joinColumns = @JoinColumn(name="id"), inverseJoinColumns = @JoinColumn(name="id"))
-    @NotBlank
+    @JsonIgnore
     private List<Author> authors = new ArrayList<>();
 
     //OneToMany bookitem

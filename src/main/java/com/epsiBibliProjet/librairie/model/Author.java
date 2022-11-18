@@ -25,8 +25,7 @@ public class Author {
 
     private Date birthDate;
     @ManyToMany
-    @JoinTable(name = "T_Book_Author_Associations", joinColumns = @JoinColumn(name="id"), inverseJoinColumns = @JoinColumn(name="id"))
-    @NotBlank
+
     private List<Book> books = new ArrayList<>();
 
 
