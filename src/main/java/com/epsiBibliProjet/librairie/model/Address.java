@@ -16,7 +16,6 @@ public class Address {
     private long id;
     @NotBlank
     private String address;
-    @Basic(optional = false)
     public String getAddress(){
        return address;
     }

@@ -15,16 +15,10 @@ public class Librarian {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
-    @NotBlank
+    @OneToOne
+    @JoinColumn(name = "id", nullable = false)
     private FullName name;
-
+    @OneToOne
+    @JoinColumn(name = "id", nullable = false)
     private Address address;
-    @Basic(optional = false)
-    public FullName getName() {
-        return name;
-    }
-    @Basic(optional = false)
-    public Address getAddress() {
-        return address;
-    }
 }

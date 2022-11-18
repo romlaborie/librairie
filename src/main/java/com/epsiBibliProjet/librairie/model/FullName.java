@@ -17,7 +17,6 @@ public class FullName {
     private long id;
     @NotBlank
     private String fullName;
-    @Basic(optional = false)
     public String getFullName(){
         return fullName;
     }

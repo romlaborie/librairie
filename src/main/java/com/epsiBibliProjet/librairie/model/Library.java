@@ -4,10 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 
 @Entity
@@ -20,8 +17,10 @@ public class Library {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
-    @NotBlank
+    @OneToOne
+    @JoinColumn(name = "id", nullable = false)
     private FullName name;
-    @NotBlank
+    @OneToOne
+    @JoinColumn(name = "id", nullable = false)
     private Address address;
 }
