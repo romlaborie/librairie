@@ -2,21 +2,19 @@ package com.epsiBibliProjet.librairie.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
-@Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@EqualsAndHashCode
+@Embeddable
 public class Address {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+
     @NotBlank
     private String address;
-    public String getAddress(){
-       return address;
-    }
+
 }

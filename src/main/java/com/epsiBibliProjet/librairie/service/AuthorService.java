@@ -15,4 +15,11 @@ public class AuthorService {
         authorRepository.save(author);
 
     }
+
+    public Author getAuthor(Long authorId) {
+        Author author = authorRepository.findById(authorId).orElseThrow(() ->
+                new IllegalArgumentException(
+                        "author with id: " + authorId + " could not be found"));
+        return author;
+    }
 }

@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import java.util.List;
 
 @Entity
 @Data
@@ -17,10 +18,15 @@ public class Library {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
-    @OneToOne
-    @JoinColumn(name = "id", nullable = false)
+    @Embedded
     private FullName name;
-    @OneToOne
-    @JoinColumn(name = "id", nullable = false)
+
+    @Embedded
     private Address address;
+
+    @OneToMany(mappedBy = "library")
+    private List<BookItem> bookItem;
+
+   // @OneToMany
+   // private List<Account> accountList;
 }

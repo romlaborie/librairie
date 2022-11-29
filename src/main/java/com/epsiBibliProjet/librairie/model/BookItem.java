@@ -6,17 +6,15 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Date;
 
 @Entity
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class BookItem {
+public class BookItem extends Book {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
@@ -24,18 +22,37 @@ public class BookItem {
     private String ISBN;
 
     private String RFID;
+
     private String barcode;
 
     private String subject;
-    private String title;
+
+    private String title; //nom du livre
+
     private boolean isReferenceOnly;
-    private Language lang;
+
+    @Enumerated(EnumType.STRING)
+    private Language language;
+
     private int numberOfPages;
+
+    @Enumerated(EnumType.STRING)
     private Format format;
+
     private Date borrowed;
+
     private int loanPeriod;
+
     private boolean isOverdue;
+
+    //Pas de setter
     private Date dueDate;
+
+    @ManyToOne
+    @JoinColumn(name = "library_id")
+    private Library library;
+
+
 
 
 }
