@@ -1,5 +1,6 @@
 package com.epsiBibliProjet.librairie.controller;
 
+import com.epsiBibliProjet.librairie.dto.BookDto;
 import com.epsiBibliProjet.librairie.model.Book;
 import com.epsiBibliProjet.librairie.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,10 +15,14 @@ public class BookController {
     private BookService bookService;
 
     @PostMapping("/ajout_livre")
-    public void saveBook(@RequestBody Book book){
+    public void saveBook(@RequestBody BookDto book){
         bookService.addBook(book);
     }
 
+    @GetMapping("/listeBook")
+    public List<Book> listBooks(){
+        return bookService.getAll();
+    }
     @GetMapping("/books")
     public List<Book> recherche(@RequestParam String titre){
         List<Book> books = bookService.searchByTitle(titre);

@@ -16,7 +16,7 @@ public class Library {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+    private Long id;
 
     @Embedded
     private FullName name;

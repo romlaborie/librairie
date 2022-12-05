@@ -1,8 +1,11 @@
 package com.epsiBibliProjet.librairie.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -10,16 +13,17 @@ import java.util.Date;
 import java.util.List;
 
 @Entity
+@Inheritance( strategy = InheritanceType.JOINED )
+@SuperBuilder
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
 public class Book {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+    private Long bookId;
 
-    private String ISBN;
+    private String isbn;
 
     private String name;
 
@@ -38,6 +42,7 @@ public class Book {
             joinColumns = @JoinColumn(name = "book_id"),
             inverseJoinColumns = @JoinColumn(name = "author_id")
     )
+    @JsonBackReference
     private List<Author> authors = new ArrayList<>();
 
     public void addAuthor(Author author) {

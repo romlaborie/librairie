@@ -14,7 +14,7 @@ import javax.validation.constraints.NotBlank;
 public class Librarian {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+    private Long id;
 
     @Embedded
     private FullName name;

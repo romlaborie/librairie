@@ -2,42 +2,37 @@ package com.epsiBibliProjet.librairie.model;
 
 import com.epsiBibliProjet.librairie.enumator.Format;
 import com.epsiBibliProjet.librairie.enumator.Language;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Data
-@AllArgsConstructor
+@PrimaryKeyJoinColumn( name = "bookId" )
 @NoArgsConstructor
+@SuperBuilder
 public class BookItem extends Book {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
-
-    private String ISBN;
-
-    private String RFID;
+    private String rfid;
 
     private String barcode;
-
-    private String subject;
-
-    private String title; //nom du livre
 
     private boolean isReferenceOnly;
 
     @Enumerated(EnumType.STRING)
-    private Language language;
+    @ElementCollection(targetClass = Language.class)
+    private List<Language> language;
 
     private int numberOfPages;
 
     @Enumerated(EnumType.STRING)
-    private Format format;
+    @ElementCollection(targetClass = Format.class)
+    private List<Format> formats;
 
     private Date borrowed;
 
@@ -45,14 +40,11 @@ public class BookItem extends Book {
 
     private boolean isOverdue;
 
-    //Pas de setter
     private Date dueDate;
 
     @ManyToOne
     @JoinColumn(name = "library_id")
     private Library library;
-
-
 
 
 }

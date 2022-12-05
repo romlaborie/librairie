@@ -1,5 +1,6 @@
 package com.epsiBibliProjet.librairie.model;
 
+import com.epsiBibliProjet.librairie.dto.BookDto;
 import com.epsiBibliProjet.librairie.service.Manage;
 import com.epsiBibliProjet.librairie.service.Search;
 import lombok.AllArgsConstructor;
@@ -41,7 +42,7 @@ public class Patron  {
     public List<Book> searchByAuthorName(String nameAuthor) {
         return this.search.searchByAuthorName(nameAuthor);
     }
-    public void add(Book book) {
+    public void add(BookDto book) {
          this.manage.addBook(book);
     }
 
