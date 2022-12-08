@@ -15,27 +15,25 @@ import java.util.List;
 @Entity
 @Data
 @PrimaryKeyJoinColumn( name = "bookId" )
-@NoArgsConstructor
 @SuperBuilder
 public class BookItem extends Book {
-    private String isbn;
-    private String subject;
     private String barcode;
     private String title;
+    private String tag;
     private boolean isReferenceOnly;
-
-    @Enumerated(EnumType.STRING)
-    @ElementCollection(targetClass = Language.class)
-    private List<Language> language;
-
     private int numberOfPages;
 
     @Enumerated(EnumType.STRING)
-    @ElementCollection(targetClass = Format.class)
-    private List<Format> formats;
-    @ManyToOne
-    @JoinColumn(name = "library_name")
-    private Library library;
+    private Language language;
+
+    @Enumerated(EnumType.STRING)
+    private Format format;
+
+    private String library;
+
+    public BookItem(){
+        this.isReferenceOnly = false;
+    }
 
 
 }

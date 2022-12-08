@@ -18,16 +18,24 @@ public class Account {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
+    private String username;
+
     private String password;
 
     @Enumerated(EnumType.STRING)
     private AccountState state;
+
     private Date opened;
+
+    public Account(){
+        this.opened = new Date();
+    }
 
     @ManyToOne()
     private Library library;
 
-    @OneToMany
+  /**  @OneToMany
     private List<BookItem> borrowed = new ArrayList<>();
 
     @OneToMany
@@ -45,4 +53,5 @@ public class Account {
             reserved.add(bookItem);
         }
     }
+    **/
 }

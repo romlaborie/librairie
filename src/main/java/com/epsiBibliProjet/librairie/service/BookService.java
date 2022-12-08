@@ -45,10 +45,9 @@ public class BookService implements Search, Manage {
         book.setName(transBook.getName());
         book.setOverview(transBook.getOverview());
         book.setPublisher(transBook.getPublisher());
-        book.setPublicationDate(new Date());
+        book.setPublicationDate(transBook.getPublicationDate());
         book.setSubject(transBook.getSubject());
         book.setLang(transBook.getLang());
-        book.setPublicationDate(transBook.getPublicationDate());
         if (transBook.getAuthorIds().isEmpty()) {
             throw new IllegalArgumentException("you need atleast on author");
         } else {

@@ -5,13 +5,17 @@ import com.epsiBibliProjet.librairie.repository.AuthorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+
 @Service
 public class AuthorService {
 
     @Autowired
     private AuthorRepository authorRepository;
 
-    public void addAuthor(Author author){
+    public void addAuthor(Author authorBody){
+        Author author = new Author();
+        //author.setBirthDate(LocalDate.parse(authorBody.getBirthDate()));
         authorRepository.save(author);
 
     }

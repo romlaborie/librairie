@@ -5,5 +5,5 @@ import com.epsiBibliProjet.librairie.enumator.Language;
 
 import java.util.List;
 
-public record BookItemDto(String rfid, String barcode, List<Language> languages, int numberOfPages, List<Format> formats, String isbn) {
+public record BookItemDto(String rfid, String barcode, Language language, int numberOfPages, Format format, String isbn) {
 }
