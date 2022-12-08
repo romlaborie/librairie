@@ -22,7 +22,6 @@ public class BookItemService {
         BookItem book = bookItemRepository.findById(bookItem.getBookId()).get();
         book.setBarcode(bookItem.getBarcode());
         book.setNumberOfPages(bookItem.getNumberOfPages());
-        book.setRfid(bookItem.getRfid());
         book.setFormats(bookItem.getFormats());
         book.setLanguage(bookItem.getLanguage());
 

@@ -18,10 +18,10 @@ import java.util.List;
 @NoArgsConstructor
 @SuperBuilder
 public class BookItem extends Book {
-    private String rfid;
-
+    private String isbn;
+    private String subject;
     private String barcode;
-
+    private String title;
     private boolean isReferenceOnly;
 
     @Enumerated(EnumType.STRING)
@@ -33,17 +33,8 @@ public class BookItem extends Book {
     @Enumerated(EnumType.STRING)
     @ElementCollection(targetClass = Format.class)
     private List<Format> formats;
-
-    private Date borrowed;
-
-    private int loanPeriod;
-
-    private boolean isOverdue;
-
-    private Date dueDate;
-
     @ManyToOne
-    @JoinColumn(name = "library_id")
+    @JoinColumn(name = "library_name")
     private Library library;
 
 

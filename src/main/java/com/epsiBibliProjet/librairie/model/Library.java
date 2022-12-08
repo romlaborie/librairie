@@ -18,8 +18,7 @@ public class Library {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Embedded
-    private FullName name;
+    private String name;
 
     @Embedded
     private Address address;
@@ -27,6 +26,6 @@ public class Library {
     @OneToMany(mappedBy = "library")
     private List<BookItem> bookItem;
 
-   // @OneToMany
-   // private List<Account> accountList;
+    @OneToMany
+    private List<Account> accountList;
 }
