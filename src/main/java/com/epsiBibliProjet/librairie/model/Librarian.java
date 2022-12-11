@@ -16,11 +16,4 @@ public class Librarian  extends Account{
 
     private  String  position;
 
-    @Embedded
-    private FullName name;
-
-    @Embedded
-    private Address address;
-
-
 }

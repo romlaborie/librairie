@@ -4,6 +4,7 @@ import com.epsiBibliProjet.librairie.dto.BookDto;
 import com.epsiBibliProjet.librairie.model.Book;
 import com.epsiBibliProjet.librairie.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,6 +16,7 @@ public class BookController {
     private BookService bookService;
 
     @PostMapping("/ajout_livre")
+    @PostAuthorize("hasAuthority('LIBRA_RIAN')")
     public void saveBook(@RequestBody BookDto book){
         bookService.addBook(book);
     }

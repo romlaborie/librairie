@@ -1,5 +1,6 @@
 package com.epsiBibliProjet.librairie.model;
 
+import com.epsiBibliProjet.librairie.enumator.BookStatus;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
@@ -13,11 +14,10 @@ import java.util.Date;
 import java.util.List;
 
 @Entity
-@Inheritance( strategy = InheritanceType.JOINED )
-@SuperBuilder
+@Inheritance(strategy=InheritanceType.SINGLE_TABLE)
 @Data
 @NoArgsConstructor
-public class Book {
+public abstract class  Book {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -36,6 +36,9 @@ public class Book {
     private Date publicationDate;
 
     private String lang;
+
+    @Enumerated(EnumType.STRING)
+    private BookStatus status;
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinTable(
             name = "book_author",

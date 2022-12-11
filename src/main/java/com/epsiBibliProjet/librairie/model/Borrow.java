@@ -1,12 +1,9 @@
 package com.epsiBibliProjet.librairie.model;
 
-import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.time.LocalDate;
 import java.util.Calendar;
-import java.util.Date;
 
 @Entity
 @NoArgsConstructor
@@ -16,7 +13,7 @@ public class Borrow {
     private int id;
 
     @ManyToOne
-    private Account account;
+    private Account borrower;
 
     private Calendar borrowed;
 
@@ -26,8 +23,11 @@ public class Borrow {
 
     private Calendar dueDate;
 
-    public Borrow(Account account,  int loanPeriod) {
-        this.account = account;
+    @ManyToOne
+    private BookItem bookItem;
+
+    public Borrow(Account borrower,  int loanPeriod) {
+        this.borrower = borrower;
         this.borrowed = Calendar.getInstance();
         this.loanPeriod = loanPeriod;
         this.isOverdue = false;
@@ -44,12 +44,12 @@ public class Borrow {
         this.id = id;
     }
 
-    public Account getAccount() {
-        return account;
+    public Account getBorrower() {
+        return borrower;
     }
 
-    public void setAccount(Account account) {
-        this.account = account;
+    public void setBorrower(Account borrower) {
+        this.borrower = borrower;
     }
 
     public Calendar getBorrowed() {

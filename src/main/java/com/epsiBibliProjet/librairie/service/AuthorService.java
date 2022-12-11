@@ -13,9 +13,8 @@ public class AuthorService {
     @Autowired
     private AuthorRepository authorRepository;
 
-    public void addAuthor(Author authorBody){
-        Author author = new Author();
-        //author.setBirthDate(LocalDate.parse(authorBody.getBirthDate()));
+    public void addAuthor(Author author){
+
         authorRepository.save(author);
 
     }

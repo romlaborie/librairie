@@ -1,5 +1,6 @@
 package com.epsiBibliProjet.librairie.controller;
 
+import com.epsiBibliProjet.librairie.dto.BookDto;
 import com.epsiBibliProjet.librairie.dto.BookItemDto;
 import com.epsiBibliProjet.librairie.model.BookItem;
 import com.epsiBibliProjet.librairie.service.BookItemService;
@@ -19,9 +20,9 @@ public class BookItemController {
     private BookService bookService;
 
     @PostMapping("/bookItem")
-    public void add(@RequestBody BookItem bookItemDto){
+    public void add(@RequestBody BookDto book){
 
-       bookItemService.addBookItem(bookItemDto);
+       bookItemService.addBookItem(book);
     }
 
     @GetMapping("/bookItems")

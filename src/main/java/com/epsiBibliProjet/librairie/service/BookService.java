@@ -2,18 +2,20 @@ package com.epsiBibliProjet.librairie.service;
 
 import com.epsiBibliProjet.librairie.dto.BookDto;
 import com.epsiBibliProjet.librairie.dto.BookResponseDto;
+import com.epsiBibliProjet.librairie.enumator.BookStatus;
 import com.epsiBibliProjet.librairie.model.Author;
 import com.epsiBibliProjet.librairie.model.Book;
 import com.epsiBibliProjet.librairie.model.BookItem;
+import com.epsiBibliProjet.librairie.model.Library;
 import com.epsiBibliProjet.librairie.repository.AuthorRepository;
 import com.epsiBibliProjet.librairie.repository.BookItemRepository;
 import com.epsiBibliProjet.librairie.repository.BookRepository;
+import com.epsiBibliProjet.librairie.repository.LibraryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @Service
@@ -29,6 +31,9 @@ public class BookService implements Search, Manage {
     private AuthorService authorService;
 
     @Autowired
+    private LibraryRepository libraryRepository;
+
+    @Autowired
     private AuthorRepository authorRepository;
 
 
@@ -41,6 +46,7 @@ public class BookService implements Search, Manage {
     public void addBook(BookDto transBook) {
 
         BookItem book = new BookItem();
+        Library library = libraryRepository.findLibraryByName(transBook.getLibrary());
         book.setIsbn(transBook.getIsbn());
         book.setName(transBook.getName());
         book.setOverview(transBook.getOverview());
@@ -59,9 +65,19 @@ public class BookService implements Search, Manage {
             }
             book.setAuthors(authors);
         }
+        book.setBarcode(transBook.getBarcode());
+        book.setNumberOfPages(transBook.getNumberOfPages());
+        book.setIsbn(book.getIsbn());
+        book.setTag(transBook.getTitle());
+        book.setFormat(transBook.getFormat());
+        book.setSubject(book.getSubject());
+        book.setLibrary(library.getName());
+        book.setStatus(BookStatus.FREE);
 
-        bookItemRepository.save(book);
+        bookRepository.save(book);
     }
+
+
 
 
     @Override
