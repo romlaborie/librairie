@@ -1,31 +1,28 @@
 package com.epsiBibliProjet.librairie.service;
 
 import com.epsiBibliProjet.librairie.dto.BookDto;
-import com.epsiBibliProjet.librairie.dto.BookResponseDto;
 import com.epsiBibliProjet.librairie.enumator.BookStatus;
 import com.epsiBibliProjet.librairie.model.Author;
 import com.epsiBibliProjet.librairie.model.Book;
 import com.epsiBibliProjet.librairie.model.BookItem;
 import com.epsiBibliProjet.librairie.model.Library;
 import com.epsiBibliProjet.librairie.repository.AuthorRepository;
-import com.epsiBibliProjet.librairie.repository.BookItemRepository;
 import com.epsiBibliProjet.librairie.repository.BookRepository;
 import com.epsiBibliProjet.librairie.repository.LibraryRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
+@Slf4j
 public class BookService implements Search, Manage {
 
     @Autowired
     private BookRepository bookRepository;
 
-    @Autowired
-    private BookItemRepository bookItemRepository;
 
     @Autowired
     private AuthorService authorService;
@@ -36,8 +33,6 @@ public class BookService implements Search, Manage {
     @Autowired
     private AuthorRepository authorRepository;
 
-
-    @GetMapping("all")
     public List<Book> getAllBooks() {
         return this.bookRepository.findAll();
     }
@@ -55,7 +50,7 @@ public class BookService implements Search, Manage {
         book.setSubject(transBook.getSubject());
         book.setLang(transBook.getLang());
         if (transBook.getAuthorIds().isEmpty()) {
-            throw new IllegalArgumentException("you need atleast on author");
+            throw new IllegalArgumentException("Vous devez ajouter un auteur au livre");
         } else {
             // sinon on crée une liste d'auteur et on donne au livre
             List<Author> authors = new ArrayList();
@@ -68,6 +63,7 @@ public class BookService implements Search, Manage {
         book.setBarcode(transBook.getBarcode());
         book.setNumberOfPages(transBook.getNumberOfPages());
         book.setIsbn(book.getIsbn());
+        book.setTitle(transBook.getTitle());
         book.setTag(transBook.getTitle());
         book.setFormat(transBook.getFormat());
         book.setSubject(book.getSubject());
@@ -76,10 +72,6 @@ public class BookService implements Search, Manage {
 
         bookRepository.save(book);
     }
-
-
-
-
     @Override
     public List<Book> searchByTitle(String term) {
         List<Book> bookItemsFinded = bookRepository.findBookByName(term);
@@ -91,13 +83,13 @@ public class BookService implements Search, Manage {
     }
     @Override
     public List<Book> searchByAuthorName(String nameAuthor) {
-        List<Book> bookItemsFinded = new ArrayList<>();
-        BookItem bookItem = (BookItem) authorRepository.findByName(nameAuthor);
-        if (bookItem == null) {
-            //Exception
+        List<Book> booksFinded = new ArrayList<>();
+        Book book = (Book) authorRepository.findByName(nameAuthor);
+        if (book == null) {
+            log.info("cet auteur n'éxiste pas !");
         }
-        bookItemsFinded.add(bookItem);
-        return bookItemsFinded;
+        booksFinded.add(book);
+        return booksFinded;
     }
 
     public Book getBook(Long bookId) {
@@ -105,31 +97,6 @@ public class BookService implements Search, Manage {
                 new IllegalArgumentException("cannot find book with id: " + bookId));
         return book;
     }
-
-    public BookResponseDto addAuthorToBook(Long bookId, Long authorId) {
-        Book book = getBook(bookId);
-        Author author = authorService.getAuthor(authorId);
-        if (author.getBooks().contains(author)) {
-            throw new IllegalArgumentException("this author is already assigned to this book");
-        }
-        book.addAuthor(author);
-        author.addBook(book);
-
-        return null;
-    }
-
-
-    public BookResponseDto deleteAuthorFromBook(Long bookId, Long authorId) {
-        Book book = getBook(bookId);
-        Author author = authorService.getAuthor(authorId);
-        if (!(author.getBooks().contains(book))) {
-            throw new IllegalArgumentException("book does not have this author");
-        }
-        author.removeBook(book);
-        book.deleteAuthor(author);
-        return null;
-    }
-
 
     @Override
     public Book edit(Book book, long id) {

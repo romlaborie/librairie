@@ -16,6 +16,7 @@ public abstract class Account {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+
     private String username;
 
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
@@ -30,7 +31,6 @@ public abstract class Account {
     private FullName name;
 
     @Embedded
-
     private Address address;
 
     public Account(){

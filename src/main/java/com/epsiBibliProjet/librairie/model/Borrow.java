@@ -1,32 +1,38 @@
 package com.epsiBibliProjet.librairie.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.Calendar;
+import java.util.Date;
 
 @Entity
+@Data
 @NoArgsConstructor
+@AllArgsConstructor
 public class Borrow {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
 
     @ManyToOne
     private Account borrower;
 
-    private Calendar borrowed;
+    private LocalDate borrowed;
 
     private int loanPeriod;
 
     private boolean isOverdue;
 
-    private Calendar dueDate;
+    private LocalDate dueDate;
 
     @ManyToOne
-    private BookItem bookItem;
+    private Book book;
 
-    public Borrow(Account borrower,  int loanPeriod) {
+  /**  public Borrow(Account borrower,  int loanPeriod) {
         this.borrower = borrower;
         this.borrowed = Calendar.getInstance();
         this.loanPeriod = loanPeriod;
@@ -36,51 +42,7 @@ public class Borrow {
         this.dueDate = calendar;
     }
 
-    public int getId() {
-        return id;
-    }
+   **/
 
-    public void setId(int id) {
-        this.id = id;
-    }
 
-    public Account getBorrower() {
-        return borrower;
-    }
-
-    public void setBorrower(Account borrower) {
-        this.borrower = borrower;
-    }
-
-    public Calendar getBorrowed() {
-        return borrowed;
-    }
-
-    public void setBorrowed(Calendar borrowed) {
-        this.borrowed = borrowed;
-    }
-
-    public int getLoanPeriod() {
-        return loanPeriod;
-    }
-
-    public void setLoanPeriod(int loanPeriod) {
-        this.loanPeriod = loanPeriod;
-    }
-
-    public boolean isOverdue() {
-        return isOverdue;
-    }
-
-    public void setOverdue(boolean overdue) {
-        isOverdue = overdue;
-    }
-
-    public Calendar getDueDate() {
-        return dueDate;
-    }
-
-    public void setDueDate(Calendar dueDate) {
-        this.dueDate = dueDate;
-    }
 }

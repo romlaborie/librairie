@@ -9,10 +9,5 @@ import java.util.List;
 
 @Repository
 public interface BookRepository extends JpaRepository<Book, Long> {
-
-    Book findById(long id);
     List<Book> findBookByName(String name);
-
-    List<Book>findByStatusAndUserId(BookStatus status, Long userId);
-    List<Book> findByUserIdAndDeletedFalse(Integer id);
 }

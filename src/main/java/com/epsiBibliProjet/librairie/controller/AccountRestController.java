@@ -32,15 +32,15 @@ public class AccountRestController {
         return accountService.listUsers();
     }
 
-    @PostMapping(path = "/patron")
-    @PostAuthorize("hasAuthority('PATRON')")
+    @PostMapping(path = "/patron/{libraryName}")
+    //@PostAuthorize("hasAuthority('PATRON')")
     public void saveUser(@RequestBody Patron patron, @PathVariable String libraryName){
          accountService.addNewUser(patron, libraryName);
 
     }
 
-    @PostMapping(path = "/librarian")
-    @PostAuthorize("hasAuthority('LIBRA_RIAN')")
+    @PostMapping(path = "/librarian/{libraryName}")
+    //@PostAuthorize("hasAuthority('LIBRA_RIAN')")
     public void saveLibrarian(@RequestBody Librarian librarian, @PathVariable String libraryName){
         accountService.addNewLibrarian(librarian, libraryName);
 

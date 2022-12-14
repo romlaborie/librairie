@@ -1,17 +1,12 @@
 package com.epsiBibliProjet.librairie.model;
 
-import com.epsiBibliProjet.librairie.enumator.BookStatus;
 import com.epsiBibliProjet.librairie.enumator.Format;
 import com.epsiBibliProjet.librairie.enumator.Language;
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.experimental.SuperBuilder;
 
-import javax.persistence.*;
-import java.util.Date;
-import java.util.List;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 
 @Entity
 @Data
@@ -34,7 +29,7 @@ public class BookItem extends Book {
 
     private String library;
 
-    BookItem(){
+    public BookItem(){
         this.isReferenceOnly = false;
     }
 

@@ -2,9 +2,13 @@ package com.epsiBibliProjet.librairie.service;
 
 
 import com.epsiBibliProjet.librairie.model.Librarian;
+import com.epsiBibliProjet.librairie.model.Library;
 import com.epsiBibliProjet.librairie.repository.LibrarianRepository;
+import com.epsiBibliProjet.librairie.repository.LibraryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @Service
 public class LibrarianService {
@@ -12,11 +16,16 @@ public class LibrarianService {
     @Autowired
     private LibrarianRepository librarianRepository;
 
-    public void addLibrarian(Librarian librarian){
-        Librarian librarian1 = new Librarian();
-        librarian1.setAddress(librarian.getAddress());
-        librarian1.setName(librarian.getName());
+    @Autowired
+    private LibraryRepository libraryRepository;
 
-        librarianRepository.save(librarian1);
+    public void addLibrarian(Librarian librarianSaved){
+        Optional<Library> library = libraryRepository.findById(librarianSaved.getLibrary().getId());
+        Librarian librarian = new Librarian();
+        librarian.setAddress(librarianSaved.getAddress());
+        librarian.setName(librarianSaved.getName());
+        librarian.setLibrary(library.get());
+
+        librarianRepository.save(librarian);
     }
 }

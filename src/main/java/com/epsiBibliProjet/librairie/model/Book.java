@@ -39,6 +39,10 @@ public abstract class  Book {
 
     @Enumerated(EnumType.STRING)
     private BookStatus status;
+
+    @ManyToOne
+    private Account user;
+
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinTable(
             name = "book_author",

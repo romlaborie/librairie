@@ -43,6 +43,9 @@ public class AcountServiceImpl implements  AccountService{
     public void addNewUser(Patron patronSave, String libraryName) {
         Library library = libraryRepository.findLibraryByName(libraryName);
         Patron patron = new Patron();
+        patron.setUsername(patronSave.getUsername());
+        patron.setName(patronSave.getName());
+        patron.setAddress(patronSave.getAddress());
         patron.setLibrary(library);
         patron.setPassword(passwordEncoder.encode(patronSave.getPassword()));
          appUserRepository.save(patron);
@@ -54,6 +57,10 @@ public class AcountServiceImpl implements  AccountService{
         Librarian librarian = new Librarian();
         librarian.setLibrary(library);
         librarian.setPassword(passwordEncoder.encode(librarianSaved.getPassword()));
+        librarian.setAddress(librarianSaved.getAddress());
+        librarian.setName(librarianSaved.getName());
+        librarian.setUsername(librarianSaved.getUsername());
+        librarian.setPosition(librarianSaved.getPosition());
         appUserRepository.save(librarian);
     }
 
