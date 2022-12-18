@@ -18,11 +18,11 @@ public class BorrowController {
     @PostMapping("/emprunter/{bookId}")
     @PostAuthorize("hasAuthority('PATRON')")
     public void createBorrow(@PathVariable Long bookId, Principal principal){
-        borrowService.createBorrow(bookId);
+        borrowService.createBorrow(bookId, principal.getName());
     }
     @PostMapping("/reserver/{bookId}")
     @PostAuthorize("hasAuthority('PATRON')")
     public void reservation(@PathVariable Long bookId, Principal principal){
-        borrowService.reserver(bookId);
+        borrowService.reserver(bookId,  principal.getName());
     }
 }

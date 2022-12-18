@@ -28,16 +28,17 @@ public class BorrowService {
     @Autowired
     private BorrowRepository borrowRepository;
 
-    public List<Book> createBorrow(Long bookId){
+    public List<Book> createBorrow(Long bookId, String name){
         List<Book> bookborrowed = new ArrayList<>();
         Optional<Book> book = bookRepository.findById(bookId);
+        Account account = accountRepository.findByUsername(name);
 
         if(book.isPresent() && book.get().getStatus().equals(BookStatus.FREE)){
             Borrow borrow = new Borrow();
             borrow.setOverdue(false);
             Book bookEntity = book.get();
             borrow.setBook(bookEntity);
-           // borrow.setBorrower(borrower.get());
+            borrow.setBorrower(account);
             borrow.setBorrowed(LocalDate.now());
             borrow.setDueDate(LocalDate.now());
             borrow.setOverdue(true);
@@ -54,16 +55,16 @@ public class BorrowService {
         return bookborrowed;
     }
 
-    public List<Book> reserver(Long bookId){
+    public List<Book> reserver(Long bookId, String name){
         List<Book> bookReserved = new ArrayList<>();
         Optional<Book> book = bookRepository.findById(bookId);
-
+       Account account = accountRepository.findByUsername(name);
         if(book.isPresent() && book.get().getStatus().equals(BookStatus.FREE)){
             Borrow borrow = new Borrow();
             borrow.setOverdue(false);
             Book bookEntity = book.get();
             borrow.setBook(bookEntity);
-            // borrow.setBorrower(borrower.get());
+            borrow.setBorrower(account);
             borrow.setBorrowed(LocalDate.now());
             borrow.setDueDate(LocalDate.now());
             borrow.setOverdue(true);
