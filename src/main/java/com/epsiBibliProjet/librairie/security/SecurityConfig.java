@@ -21,12 +21,14 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 import java.util.ArrayList;
 import java.util.Collection;
 
 @Configuration
 @EnableWebSecurity
+@CrossOrigin
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 
@@ -69,15 +71,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/allBooks").permitAll()
                 .antMatchers("/recherche_par_nom_auteur").permitAll()
                 .antMatchers("/recherche_par_titre").permitAll()
-                .antMatchers("/patron/**").permitAll()
-                .antMatchers("/librarian/**").permitAll()
-                .antMatchers("/add_auteur").permitAll()
-                .antMatchers("/ajout_livre").permitAll()
                 .antMatchers("/listeBook").permitAll()
-                .antMatchers("/library").permitAll()
-                .antMatchers("/roles").permitAll()
-                .antMatchers("/addRoleToUser").permitAll()
-                .antMatchers("/emprunter/**").permitAll()
                 .antMatchers("/login").permitAll()
                 .anyRequest().authenticated()
                 .and();

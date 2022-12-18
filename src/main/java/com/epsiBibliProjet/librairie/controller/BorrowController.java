@@ -2,6 +2,7 @@ package com.epsiBibliProjet.librairie.controller;
 
 import com.epsiBibliProjet.librairie.service.BorrowService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -15,12 +16,12 @@ public class BorrowController {
     private BorrowService borrowService;
 
     @PostMapping("/emprunter/{bookId}")
+    @PostAuthorize("hasAuthority('PATRON')")
     public void createBorrow(@PathVariable Long bookId, Principal principal){
         borrowService.createBorrow(bookId);
     }
-
-
     @PostMapping("/reserver/{bookId}")
+    @PostAuthorize("hasAuthority('PATRON')")
     public void reservation(@PathVariable Long bookId, Principal principal){
         borrowService.reserver(bookId);
     }

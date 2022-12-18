@@ -18,6 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 @RestController
+@CrossOrigin
 public class AccountRestController {
     @Autowired
     private AccountService accountService;
@@ -26,35 +27,31 @@ public class AccountRestController {
         this.accountService = accountService;
     }
 
-    @GetMapping(path = "/users")
-    //@PostAuthorize("hasAuthority('USER')")
-    public List<Account> appUsers(){
-        return accountService.listUsers();
-    }
-
     @PostMapping(path = "/patron/{libraryName}")
-    //@PostAuthorize("hasAuthority('PATRON')")
+    @PostAuthorize("hasAuthority('LIBRA_RIAN')")
     public void saveUser(@RequestBody Patron patron, @PathVariable String libraryName){
          accountService.addNewUser(patron, libraryName);
 
     }
 
     @PostMapping(path = "/librarian/{libraryName}")
-    //@PostAuthorize("hasAuthority('LIBRA_RIAN')")
+    @PostAuthorize("hasAuthority('LIBRA_RIAN')")
     public void saveLibrarian(@RequestBody Librarian librarian, @PathVariable String libraryName){
         accountService.addNewLibrarian(librarian, libraryName);
 
     }
 
     @PostMapping(path = "/roles")
-   public void appRole(@RequestBody AppRole appRole){
+    @PostAuthorize("hasAuthority('LIBRA_RIAN')")
+    public void appRole(@RequestBody AppRole appRole){
          accountService.addNewRole(appRole);
 
     }
 
 
     @PostMapping(path = "/addRoleToUser")
-   public void addRoleToUser(@RequestBody RoleUserForm roleUserForm){
+    @PostAuthorize("hasAuthority('LIBRA_RIAN')")
+    public void addRoleToUser(@RequestBody RoleUserForm roleUserForm){
         accountService.addRoleToUser(roleUserForm.getUsername(), roleUserForm.getRoleName());
 
     }

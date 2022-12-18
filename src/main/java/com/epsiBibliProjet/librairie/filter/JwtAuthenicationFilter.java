@@ -48,7 +48,7 @@ public class JwtAuthenicationFilter extends UsernamePasswordAuthenticationFilter
         Algorithm algo1 = Algorithm.HMAC256("mySecret1234");
         String jwtAccessToken = JWT.create()
                 .withSubject(user.getUsername())
-                .withExpiresAt(new Date(System.currentTimeMillis() +1*60*1000))
+                .withExpiresAt(new Date(System.currentTimeMillis() +120*60*1000))
                 .withIssuer(request.getRequestURL().toString())
                 //Ici on converti la liste des roles en une liste des strings
                 .withClaim("roles", user.getAuthorities().stream().map(ga ->ga.getAuthority()).collect(Collectors.toList()))
@@ -57,7 +57,7 @@ public class JwtAuthenicationFilter extends UsernamePasswordAuthenticationFilter
 
         String jwtRefreshToken = JWT.create()
                 .withSubject(user.getUsername())
-                .withExpiresAt(new Date(System.currentTimeMillis() + 15*60*1000))
+                .withExpiresAt(new Date(System.currentTimeMillis() + 120*60*1000))
                 .withIssuer(request.getRequestURL().toString())
                 .sign(algo1);
         Map<String, String> idToken = new HashMap<>();

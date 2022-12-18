@@ -4,6 +4,7 @@ import com.epsiBibliProjet.librairie.dto.BookDto;
 import com.epsiBibliProjet.librairie.model.Book;
 import com.epsiBibliProjet.librairie.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,7 +17,7 @@ public class BookController {
     private BookService bookService;
 
     @PostMapping("/ajout_livre")
-   // @PostAuthorize("hasAuthority('LIBRA_RIAN')")
+    @PostAuthorize("hasAuthority('LIBRA_RIAN')")
     public void saveBook(@RequestBody BookDto book){
         bookService.addBook(book);
     }
@@ -25,9 +26,9 @@ public class BookController {
     public List<Book> listBooks(){
         return bookService.getAll();
     }
-    @GetMapping("/recherche_par_titre")
-    public List<Book> recherche(@RequestParam String titre){
-        List<Book> books = bookService.searchByTitle(titre);
+    @GetMapping("/recherche_par_nom_livre")
+    public List<Book> recherche(@RequestParam String nom){
+        List<Book> books = bookService.searchByTitle(nom);
         return books;
     }
 
@@ -37,10 +38,4 @@ public class BookController {
         return books;
     }
 
-
-    @GetMapping("/allBooks")
-    public List<Book> allBooks(){
-        List<Book> books = bookService.getAllBooks();
-        return books;
-    }
 }

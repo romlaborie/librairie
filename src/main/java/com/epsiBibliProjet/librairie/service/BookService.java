@@ -83,12 +83,10 @@ public class BookService implements Search, Manage {
     }
     @Override
     public List<Book> searchByAuthorName(String nameAuthor) {
-        List<Book> booksFinded = new ArrayList<>();
-        Book book = (Book) authorRepository.findByName(nameAuthor);
-        if (book == null) {
-            log.info("cet auteur n'éxiste pas !");
+        List<Book> booksFinded = bookRepository.findBookByAuthorsName(nameAuthor);
+        if (booksFinded.size() == 0) {
+            log.info("cet auteur n'a rien écrit pour le moment !");
         }
-        booksFinded.add(book);
         return booksFinded;
     }
 
